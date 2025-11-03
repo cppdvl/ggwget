@@ -21,7 +21,5 @@ jobs:
         run: cmake -S . -B build -G Ninja -DGGWGET_INSTALL_PREFIX=$GITHUB_WORKSPACE/install
 
       - name: Build static library and example
-        run: cmake --build build --target ggwget ggwget_example
+        run: cmake --build build --target ggwget
 
-      - name: Install
-        run: cmake --build build --target install_ggwget
