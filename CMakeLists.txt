@@ -40,8 +40,12 @@ target_link_libraries(ggwget PUBLIC libcurl)
 target_include_directories(
     ggwget
     PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/include
-        ${curl_SOURCE_DIR}/include)
+        # used when building this project
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<BUILD_INTERFACE:${curl_SOURCE_DIR}/include>
+        # used after install: where consumers will see the byproduct of installing
+        $<INSTALL_INTERFACE:include>)
+
 target_compile_definitions(ggwget PUBLIC CURL_STATICLIB)
 target_compile_features(ggwget PUBLIC cxx_std_20)
 
