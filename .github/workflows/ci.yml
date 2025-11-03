@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y cmake ninja-build
+
+      - name: Configure
+        run: cmake -S . -B build -G Ninja -DGGWGET_INSTALL_PREFIX=$GITHUB_WORKSPACE/install
+
+      - name: Build static library and example
+        run: cmake --build build --target ggwget ggwget_example
+
+      - name: Install
+        run: cmake --build build --target install_ggwget
